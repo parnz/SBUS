@@ -46,7 +46,7 @@ bool lostFrame;
 void setup() {
   // begin the SBUS communication
   x8r.begin();
-  // x8r.begin(22, 23, false); // optional parameters for ESP32: RX pin, TX pin, inverse mode
+  // x8r.begin(22, 23, false, 100000); // optional parameters for ESP32: RX pin, TX pin, inverse mode, baudrate
 }
 
 void loop() {

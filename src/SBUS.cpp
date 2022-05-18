@@ -44,7 +44,7 @@ SBUS::SBUS(HardwareSerial& bus)
 }
 
 /* starts the serial communication */
-void SBUS::begin(uint8_t RX_PIN, uint8_t TX_PIN, bool INVERTED) // Allow to specify pins and inverting mode for ESP32 (optional parameters, added by TheDIYGuy999)
+void SBUS::begin(uint8_t RX_PIN, uint8_t TX_PIN, bool INVERTED, uint32_t SBUSBAUD) // Allow to specify pins, inverting mode and baudrate for ESP32 (optional parameters, added by TheDIYGuy999)
 {
 	// initialize parsing state
 	_parserState = 0;
@@ -52,6 +52,8 @@ void SBUS::begin(uint8_t RX_PIN, uint8_t TX_PIN, bool INVERTED) // Allow to spec
 	for (uint8_t i = 0; i < _numChannels; i++) {
 		setEndPoints(i,_defaultMin,_defaultMax);
 	}
+    // Set baudrate (allows fine tuning, if you have troubles)
+    _sbusBaud = SBUSBAUD;
 	// begin the serial port for SBUS
 	#if defined(__MK20DX128__) || defined(__MK20DX256__)  // Teensy 3.0 || Teensy 3.1/3.2
 		_bus->begin(_sbusBaud,SERIAL_8E1_RXINV_TXINV);

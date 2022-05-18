@@ -41,7 +41,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 class SBUS{
 	public:
         SBUS(HardwareSerial& bus);
-        void begin(uint8_t RX_PIN = 16, uint8_t TX_PIN = 17, bool INVERTED = false); // 16, 17 = UART 2, if not specified (for ESP32 only)
+        void begin(uint8_t RX_PIN = 16, uint8_t TX_PIN = 17, bool INVERTED = false, uint32_t SBUSBAUD = 100000); // 16, 17 = UART 2, if not specified (for ESP32 only)
 		bool read(uint16_t* channels, bool* failsafe, bool* lostFrame);
 		bool readCal(float* calChannels, bool* failsafe, bool* lostFrame);
 		void write(uint16_t* channels);
@@ -54,7 +54,7 @@ class SBUS{
 		void getWriteCal(uint8_t channel,float *coeff,uint8_t len);
 		~SBUS();
   private:
-		const uint32_t _sbusBaud = 100000;
+		uint32_t _sbusBaud = 100000;
 		static const uint8_t _numChannels = 16;
 		const uint8_t _sbusHeader = 0x0F;
 		const uint8_t _sbusFooter = 0x00;
